@@ -15,6 +15,7 @@ class Locus():
     icn_search = "//div[@class='TableAddons__item___2od--']//button[@data-react-toolbox='button']"
     txt_search_area = "//input[@placeholder='Search Tasks by ID, address, name...']"
     search_result = "//div[@class='fixedDataTableRowLayout_rowWrapper']"
+    signout = "//li[@data-test-id = 'personnelMenu-signOut']"
 
 #Create Task
     btn_add_task = "//button[@testid='addVisit']"

@@ -17,8 +17,9 @@ def pretest():                                                      #Pre-test wh
 
 
 @pytest.fixture(scope="session", autouse=True)
-def posttest():                                                     #teardown at the end of every session
-    yield driver
+def posttest(request):
+    yield driver                                                    #teardown at the end of every session
+    sign_out(request)
     driver.quit()
 
 
@@ -32,9 +33,12 @@ def home_assert():
     wait_till_element_present("xpath", Locus.txt_user_id)
 
 
-@then("User is in Home page")
-def home_page():
-    wait_till_element_present("css", Locus.left_side_bar)
+def sign_out(request):
+    if "invalid" in request.keywords:
+        pass
+    else:
+        wait_and_click("xpath", Locus.icn_profile)
+        wait_and_click("xpath", Locus.signout)
 
 
 def wait_and_click(locator_type, element):

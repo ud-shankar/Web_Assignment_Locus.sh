@@ -8,6 +8,7 @@ from Source.conftest import wait_and_send, wait_and_click, wait_till_element_pre
 
 task_id = names()
 
+
 @pytest.mark.invalid_login()
 @scenario('../Features/SDET_Assignment.feature', 'Login with invalid credentials')
 def test_invalid_login():
@@ -61,6 +62,11 @@ def password(types):
     wait_and_click("xpath", Locus.btn_Login)
 
 
+@then("User is in Home page")
+def home_page():
+    wait_till_element_present("css", Locus.left_side_bar)
+
+
 @then("Alert message is displayed for invalid password")
 def login_alert_message():
     wait_till_element_present("xpath", Locus.alert_message)
@@ -81,6 +87,7 @@ def search_and_verify(types):
         wait_and_send("xpath", Locus.txt_search_area, task_id)
     wait_till_element_present("xpath", Locus.search_result)
     assert len(driver.find_elements_by_xpath(Locus.search_result)) > 1
+    driver.find_element_by_xpath(Locus.txt_search_area).send_keys(Keys.ESCAPE)
 
 
 @then("User clicks on add task button and enter id, team")
