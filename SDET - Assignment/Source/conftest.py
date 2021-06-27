@@ -11,15 +11,15 @@ wait = WebDriverWait(driver, 30)
 
 
 @pytest.fixture(scope="function", autouse=True)
-def pretest():                                                      #Pre-test which will run before every test function
+def pretest(request):                                                      #Pre-test which will run before every test function
     Locus_login_page()
     yield driver
+    sign_out(request)
 
 
 @pytest.fixture(scope="session", autouse=True)
-def posttest(request):
+def posttest():
     yield driver                                                    #teardown at the end of every session
-    sign_out(request)
     driver.quit()
 
 
@@ -34,8 +34,10 @@ def home_assert():
 
 
 def sign_out(request):
-    if "invalid" in request.keywords:
+    if "invalid_login" in request.keywords:
         pass
+    elif "profile" in request.keywords:
+        wait_and_click("xpath", Locus.signout)
     else:
         wait_and_click("xpath", Locus.icn_profile)
         wait_and_click("xpath", Locus.signout)

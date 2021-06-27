@@ -75,7 +75,8 @@ def login_alert_message():
 @then("User hovers over profile icon and verify personal details")
 def verify_personal_details():
     wait_and_click("xpath", Locus.icn_profile)
-    assert driver.find_element_by_xpath(Locus.title_user).text == "web-test"
+    user_name = driver.find_element_by_xpath(Locus.title_user).text
+    assert "web-test" in user_name
 
 
 @then(parsers.parse("User searches for a {types} task and verify the search result"))
